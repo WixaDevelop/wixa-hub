@@ -3,7 +3,7 @@
   "company": {
     "name": "WiXa",
     "tagline": "Herramientas de análisis y forense digital",
-    "intro": "Software pericial de escritorio: rigor forense, cadena de custodia y reportes reproducibles. Descarga las versiones oficiales y mantén tus herramientas siempre al día."
+    "intro": "Descargas oficiales de nuestras herramientas."
   },
   "apps": [
     {
@@ -11,7 +11,7 @@
       "name": "Watuy",
       "logo": "assets/watuy-logo.svg",
       "tagline": "Análisis forense de mensajería móvil",
-      "description": "Herramienta pericial para WhatsApp iOS/Android y CallHistory iOS. Visor de chats, reportes XLSX reproducibles, registro de auditoría encadenado por hash, recuperación de indicios y auto-actualización.",
+      "description": "Para analizar bases de WhatsApp (iOS y Android) y el historial de llamadas de iOS. Visor de chats y exportación a Excel.",
       "tagPrefix": "watuy-v",
       "accent": "#4f9ce8",
       "platform": "Windows 64-bit",
