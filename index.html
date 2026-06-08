@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WiXa — Descargas y versiones</title>
+    <meta
+      name="description"
+      content="Descargas oficiales de las aplicaciones de WiXa. Instaladores, versiones y notas de cada release."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230f172a'/%3E%3Ctext x='8' y='12' font-size='10' font-family='sans-serif' font-weight='700' fill='%23e2e8f0' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="wordmark" href="#top" aria-label="WiXa">Wi<span class="x">X</span>a</a>
+        <nav class="nav" id="nav"><!-- enlaces por app, generados --></nav>
+      </div>
+    </header>
+
+    <main id="top" class="wrap">
+      <section class="hero">
+        <h1>Descargas de <span class="wordmark inline">Wi<span class="x">X</span>a</span></h1>
+        <p class="lead">
+          Instaladores oficiales y versiones de nuestras aplicaciones. Cada release incluye su
+          suma SHA-256 para verificar la integridad.
+        </p>
+      </section>
+
+      <div id="apps" class="apps">
+        <p class="loading" id="loading">Cargando versiones…</p>
+      </div>
+
+      <section class="notice">
+        <h3>Aviso al instalar en Windows</h3>
+        <p>
+          Nuestras aplicaciones aún no están firmadas con certificado de código. La primera vez,
+          <strong>Windows SmartScreen</strong> puede indicar un editor de “origen desconocido”: es
+          normal en aplicaciones nuevas sin firma y no significa que el archivo sea inseguro. Haz
+          clic en <strong>“Más información” → “Ejecutar de todas formas”</strong>. Puedes verificar
+          la integridad comparando el hash SHA-256 del archivo con el publicado en cada versión.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© 2026 WiXa. Todos los derechos reservados.</span>
+        <span class="muted">WiXa™ y los nombres de producto son marcas de WiXa.</span>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

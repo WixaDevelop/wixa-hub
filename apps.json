@@ -1,0 +1,16 @@
+{
+  "//": "Catálogo de productos WiXa. Para agregar una app nueva: añade una entrada y publica sus releases en este repo con el tagPrefix correspondiente (p. ej. nuevaapp-v1.0.0).",
+  "apps": [
+    {
+      "id": "watuy",
+      "name": "Watuy",
+      "tagline": "Análisis forense de bases SQLite de mensajería móvil",
+      "description": "Herramienta pericial de escritorio para WhatsApp iOS/Android y CallHistory iOS. Reportes XLSX reproducibles, cadena de custodia por hash y registro de auditoría.",
+      "tagPrefix": "watuy-v",
+      "accent": "#4F9CE8",
+      "platform": "Windows 64-bit",
+      "webview2": true,
+      "repo": "wifituga/Watuy"
+    }
+  ]
+}
