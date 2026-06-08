@@ -6,8 +6,37 @@
     <title>WiXa — Herramientas de análisis y forense digital</title>
     <meta
       name="description"
-      content="WiXa desarrolla software pericial de escritorio. Descarga las versiones oficiales de nuestras herramientas, con verificación SHA-256 y auto-actualización."
+      content="WiXa: herramientas de análisis y forense digital para Windows. Descarga Watuy — análisis forense de WhatsApp (iOS y Android) y llamadas — con verificación SHA-256."
     />
+    <meta
+      name="keywords"
+      content="WiXa, Watuy, análisis forense, forense digital, forense de WhatsApp, análisis de WhatsApp, herramienta forense, forense móvil, descargar Watuy"
+    />
+    <meta name="author" content="WiXa" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="theme-color" content="#0a0c12" />
+    <link rel="canonical" href="https://wixadevelop.github.io/wixa-hub/" />
+
+    <!-- Open Graph (vista previa al compartir) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WiXa" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content="WiXa — Herramientas de análisis y forense digital" />
+    <meta
+      property="og:description"
+      content="Descarga Watuy: análisis forense de WhatsApp (iOS y Android) y llamadas, con verificación SHA-256."
+    />
+    <meta property="og:url" content="https://wixadevelop.github.io/wixa-hub/" />
+    <meta property="og:image" content="https://wixadevelop.github.io/wixa-hub/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WiXa — Herramientas de análisis y forense digital" />
+    <meta name="twitter:description" content="Descarga Watuy: análisis forense de WhatsApp y llamadas." />
+    <meta name="twitter:image" content="https://wixadevelop.github.io/wixa-hub/assets/og-image.png" />
+
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke-linecap='round'%3E%3Cg stroke='%234f9ce8' stroke-width='3'%3E%3Cpath d='M11 11 L21 21'/%3E%3Cpath d='M21 11 L11 21'/%3E%3C/g%3E%3C/svg%3E"
@@ -19,6 +48,41 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://wixadevelop.github.io/wixa-hub/#org",
+            "name": "WiXa",
+            "url": "https://wixadevelop.github.io/wixa-hub/",
+            "logo": "https://wixadevelop.github.io/wixa-hub/assets/wixa-logo.svg",
+            "description": "Herramientas de análisis y forense digital."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://wixadevelop.github.io/wixa-hub/#website",
+            "url": "https://wixadevelop.github.io/wixa-hub/",
+            "name": "WiXa",
+            "inLanguage": "es",
+            "publisher": { "@id": "https://wixadevelop.github.io/wixa-hub/#org" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Watuy",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Windows",
+            "url": "https://wixadevelop.github.io/wixa-hub/#watuy",
+            "downloadUrl": "https://github.com/WixaDevelop/wixa-hub/releases",
+            "description": "Análisis forense de WhatsApp (iOS y Android) y del historial de llamadas de iOS. Visor de chats y exportación a Excel.",
+            "publisher": { "@id": "https://wixadevelop.github.io/wixa-hub/#org" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -34,7 +98,27 @@
       </div>
     </header>
 
-    <main id="view"><!-- render: landing o detalle de producto --></main>
+    <main id="view">
+      <!-- Contenido base para buscadores; app.js lo reemplaza con la versión dinámica. -->
+      <section class="hero">
+        <img class="hero-logo" src="assets/wixa-logo.svg" alt="WiXa" width="76" height="76" />
+        <span class="eyebrow">WiXa</span>
+        <h1>Herramientas de análisis y forense digital</h1>
+        <p>Descargas oficiales de nuestras herramientas.</p>
+      </section>
+      <section class="section wrap" id="productos">
+        <h2 class="section-title">Productos</h2>
+        <article class="card">
+          <h3>Watuy</h3>
+          <p class="tag">Análisis forense de mensajería móvil</p>
+          <p>
+            Para analizar bases de WhatsApp (iOS y Android) y el historial de llamadas de iOS. Visor
+            de chats y exportación a Excel. Para Windows.
+          </p>
+          <p><a href="#watuy">Ver Watuy y descargar →</a></p>
+        </article>
+      </section>
+    </main>
 
     <footer class="site-footer">
       <div class="wrap footer-inner">

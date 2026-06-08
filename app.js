@@ -189,7 +189,6 @@ function route() {
 }
 
 async function main() {
-  view.innerHTML = '<p class="loading wrap">Cargando…</p>';
   try {
     CONFIG = await (await fetch('apps.json', { cache: 'no-cache' })).json();
   } catch {

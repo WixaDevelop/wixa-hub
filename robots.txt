@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wixadevelop.github.io/wixa-hub/sitemap.xml
