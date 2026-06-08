@@ -31,6 +31,10 @@ function fmtSize(n) {
 function initial(name) {
   return (name || '?').trim().slice(0, 1).toUpperCase();
 }
+function badge(app, cls) {
+  if (app.logo) return `<div class="${cls} logo"><img src="${esc(app.logo)}" alt="" /></div>`;
+  return `<div class="${cls}" style="background:${esc(app.accent || '#5ee68f')}">${esc(initial(app.name))}</div>`;
+}
 function versionOf(rel, app) {
   const t = rel.tag_name || '';
   return t.startsWith(app.tagPrefix) ? t.slice(app.tagPrefix.length) : t;
@@ -67,7 +71,7 @@ function landing() {
         : `<span class="pill soon">Próximamente</span>`;
       return `
         <article class="card ${avail ? 'available' : 'soon'}" ${avail ? `data-app="${esc(app.id)}"` : ''}>
-          <div class="card-badge" style="background:${esc(app.accent || '#4f9ce8')}">${esc(initial(app.name))}</div>
+          ${badge(app, 'card-badge')}
           <h3>${esc(app.name)}</h3>
           <p class="tag">${esc(app.tagline || '')}</p>
           ${chips ? `<div class="chips">${chips}</div>` : ''}
@@ -78,6 +82,7 @@ function landing() {
 
   view.innerHTML = `
     <section class="hero">
+      <img class="hero-logo" src="assets/wixa-logo.svg" alt="WiXa" width="104" height="104" />
       <span class="eyebrow">${esc(c.name || 'WiXa')}</span>
       <h1>${esc(c.tagline || 'Herramientas de análisis y forense digital')}</h1>
       <p>${esc(c.intro || '')}</p>
@@ -97,11 +102,10 @@ function landing() {
 /* ---------- Página de producto ---------- */
 function productPage(app) {
   const rels = releasesFor(app);
-  const accent = app.accent || '#4f9ce8';
   const head = `
     <a class="back" href="#">← Productos</a>
     <div class="prod-head">
-      <div class="prod-badge" style="background:${accent}">${esc(initial(app.name))}</div>
+      ${badge(app, 'prod-badge')}
       <div>
         <h1>${esc(app.name)}</h1>
         <p class="tag">${esc(app.tagline || '')}</p>

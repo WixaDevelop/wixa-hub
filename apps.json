@@ -9,6 +9,7 @@
     {
       "id": "watuy",
       "name": "Watuy",
+      "logo": "assets/watuy-logo.svg",
       "tagline": "Análisis forense de mensajería móvil",
       "description": "Herramienta pericial para WhatsApp iOS/Android y CallHistory iOS. Visor de chats, reportes XLSX reproducibles, registro de auditoría encadenado por hash, recuperación de indicios y auto-actualización.",
       "tagPrefix": "watuy-v",
