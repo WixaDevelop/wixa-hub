@@ -1,152 +1,207 @@
 /*
- * Portal de descargas WiXa. Lee los releases públicos de este repo vía la API de
- * GitHub y los agrupa por app (según `tagPrefix` en apps.json). Sin dependencias.
- *
- * Para agregar una app: añade una entrada en apps.json y publica sus releases
- * aquí con el tag `<id>-vX.Y.Z` (p. ej. watuy-v1.0.1).
+ * Portal WiXa. SPA estática sin dependencias:
+ *  - Landing (#)            → hero + grilla de productos (de apps.json).
+ *  - Producto (#<id>)       → versiones y descargas (de los Releases del hub).
+ * Los releases se leen una vez de la API pública de GitHub y se agrupan por
+ * `tagPrefix`. Agregar una app = entrada en apps.json + releases con ese prefijo.
  */
 const HUB = 'WixaDevelop/wixa-hub';
+const view = document.getElementById('view');
 
-function esc(s) {
-  return String(s ?? '').replace(
+let CONFIG = null;
+let RELEASES = [];
+
+const esc = (s) =>
+  String(s ?? '').replace(
     /[&<>"']/g,
     (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
   );
-}
 
 function fmtDate(iso) {
-  if (!iso) return '';
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return '';
-  return d.toLocaleDateString('es', { year: 'numeric', month: 'long', day: 'numeric' });
+  return isNaN(d.getTime())
+    ? ''
+    : d.toLocaleDateString('es', { year: 'numeric', month: 'long', day: 'numeric' });
 }
-
 function fmtSize(n) {
-  if (!n && n !== 0) return '';
+  if (n == null) return '';
   const mb = n / (1024 * 1024);
   return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(n / 1024)} KB`;
 }
-
-function pickAssets(release) {
-  const a = release.assets || [];
-  const exe = a.find((x) => /\.exe$/i.test(x.name));
-  const msi = a.find((x) => /\.msi$/i.test(x.name));
-  const shaFor = (asset) => (asset ? a.find((x) => x.name === asset.name + '.sha256') : null);
-  return { exe, msi, exeSha: shaFor(exe), msiSha: shaFor(msi) };
+function initial(name) {
+  return (name || '?').trim().slice(0, 1).toUpperCase();
 }
-
-function downloadButtons(release) {
-  const { exe, msi } = pickAssets(release);
-  let html = '';
-  if (exe)
-    html += `<a class="btn primary" href="${esc(exe.browser_download_url)}">⬇ Instalador (.exe) <small>${fmtSize(exe.size)}</small></a>`;
-  if (msi)
-    html += `<a class="btn" href="${esc(msi.browser_download_url)}">⬇ MSI <small>${fmtSize(msi.size)}</small></a>`;
-  if (!exe && !msi) html += `<span class="meta">Sin instaladores en este release.</span>`;
-  return `<div class="downloads">${html}</div>`;
-}
-
-function hashesBlock(release) {
-  const { exeSha, msiSha } = pickAssets(release);
-  if (!exeSha && !msiSha) return '';
-  let rows = '';
-  if (exeSha)
-    rows += `<p class="hash-row"><b>.exe</b> · <a href="${esc(exeSha.browser_download_url)}">${esc(exeSha.name)}</a></p>`;
-  if (msiSha)
-    rows += `<p class="hash-row"><b>.msi</b> · <a href="${esc(msiSha.browser_download_url)}">${esc(msiSha.name)}</a></p>`;
-  return `<details class="hashes"><summary>Verificación SHA-256</summary>${rows}</details>`;
-}
-
-function versionOf(release, app) {
-  const t = release.tag_name || '';
+function versionOf(rel, app) {
+  const t = rel.tag_name || '';
   return t.startsWith(app.tagPrefix) ? t.slice(app.tagPrefix.length) : t;
 }
+function pickAssets(rel) {
+  const a = rel.assets || [];
+  const exe = a.find((x) => /\.exe$/i.test(x.name));
+  const msi = a.find((x) => /\.msi$/i.test(x.name));
+  const shaFor = (x) => (x ? a.find((y) => y.name === x.name + '.sha256') : null);
+  return { exe, msi, exeSha: shaFor(exe), msiSha: shaFor(msi) };
+}
+function releasesFor(app) {
+  if (!app.tagPrefix) return [];
+  return RELEASES.filter((r) => !r.draft && (r.tag_name || '').startsWith(app.tagPrefix)).sort(
+    (a, b) => new Date(b.published_at) - new Date(a.published_at),
+  );
+}
 
-function renderApp(app, releases) {
+/* ---------- Landing ---------- */
+function landing() {
+  const c = CONFIG.company || {};
+  const cards = (CONFIG.apps || [])
+    .map((app) => {
+      const avail = app.status !== 'comingSoon';
+      const rels = avail ? releasesFor(app) : [];
+      const latest = rels[0];
+      const chips = (app.features || [])
+        .slice(0, 3)
+        .map((f) => `<span class="chip">${esc(f)}</span>`)
+        .join('');
+      const foot = avail
+        ? `<span class="pill ok">${latest ? 'v' + esc(versionOf(latest, app)) : 'Disponible'}</span>
+           <span class="card-cta">Ver y descargar →</span>`
+        : `<span class="pill soon">Próximamente</span>`;
+      return `
+        <article class="card ${avail ? 'available' : 'soon'}" ${avail ? `data-app="${esc(app.id)}"` : ''}>
+          <div class="card-badge" style="background:${esc(app.accent || '#4f9ce8')}">${esc(initial(app.name))}</div>
+          <h3>${esc(app.name)}</h3>
+          <p class="tag">${esc(app.tagline || '')}</p>
+          ${chips ? `<div class="chips">${chips}</div>` : ''}
+          <div class="card-foot">${foot}</div>
+        </article>`;
+    })
+    .join('');
+
+  view.innerHTML = `
+    <section class="hero">
+      <span class="eyebrow">${esc(c.name || 'WiXa')}</span>
+      <h1>${esc(c.tagline || 'Herramientas de análisis y forense digital')}</h1>
+      <p>${esc(c.intro || '')}</p>
+    </section>
+    <section class="section wrap" id="productos">
+      <h2 class="section-title">Productos</h2>
+      <div class="grid">${cards}</div>
+    </section>`;
+
+  view.querySelectorAll('.card.available').forEach((el) => {
+    el.addEventListener('click', () => {
+      location.hash = '#' + el.getAttribute('data-app');
+    });
+  });
+}
+
+/* ---------- Página de producto ---------- */
+function productPage(app) {
+  const rels = releasesFor(app);
   const accent = app.accent || '#4f9ce8';
-  const initial = (app.name || '?').slice(0, 1).toUpperCase();
   const head = `
-    <div class="app-head">
-      <div class="app-badge" style="background:${esc(accent)}">${esc(initial)}</div>
+    <a class="back" href="#">← Productos</a>
+    <div class="prod-head">
+      <div class="prod-badge" style="background:${accent}">${esc(initial(app.name))}</div>
       <div>
-        <h2 class="app-title" id="${esc(app.id)}">${esc(app.name)}</h2>
-        <p class="app-tagline">${esc(app.tagline || '')}</p>
-        ${app.description ? `<p class="app-desc">${esc(app.description)}</p>` : ''}
+        <h1>${esc(app.name)}</h1>
+        <p class="tag">${esc(app.tagline || '')}</p>
       </div>
-    </div>`;
+    </div>
+    ${app.description ? `<p class="prod-desc">${esc(app.description)}</p>` : ''}`;
 
-  if (releases.length === 0) {
-    return `<section class="app">${head}<p class="empty">Aún no hay versiones publicadas. Próximamente.</p></section>`;
+  let body;
+  if (rels.length === 0) {
+    body = `<p class="empty">Aún no hay versiones publicadas. Próximamente.</p>`;
+  } else {
+    const latest = rels[0];
+    const { exe, msi, exeSha, msiSha } = pickAssets(latest);
+    const dl = [
+      exe
+        ? `<a class="btn primary" href="${esc(exe.browser_download_url)}">⬇ Instalador (.exe) <small>${fmtSize(exe.size)}</small></a>`
+        : '',
+      msi
+        ? `<a class="btn" href="${esc(msi.browser_download_url)}">⬇ MSI <small>${fmtSize(msi.size)}</small></a>`
+        : '',
+    ].join('');
+    const sha = [
+      exeSha
+        ? `<p class="hash-row"><b>.exe</b> · <a href="${esc(exeSha.browser_download_url)}">${esc(exeSha.name)}</a></p>`
+        : '',
+      msiSha
+        ? `<p class="hash-row"><b>.msi</b> · <a href="${esc(msiSha.browser_download_url)}">${esc(msiSha.name)}</a></p>`
+        : '',
+    ].join('');
+    const older = rels.slice(1);
+    const olderHtml = older.length
+      ? `<details class="older"><summary>Versiones anteriores (${older.length})</summary>${older
+          .map((r) => {
+            const p = pickAssets(r);
+            const links = [
+              p.exe ? `<a href="${esc(p.exe.browser_download_url)}">.exe</a>` : '',
+              p.msi ? `<a href="${esc(p.msi.browser_download_url)}">.msi</a>` : '',
+            ].join('');
+            return `<div class="older-item"><span class="ver" style="font-size:14px">v${esc(versionOf(r, app))}</span><span class="meta">${esc(fmtDate(r.published_at))}</span><span class="older-links">${links}</span></div>`;
+          })
+          .join('')}</details>`
+      : '';
+
+    body = `
+      <div class="panel">
+        <div class="latest-top">
+          <span class="ver">v${esc(versionOf(latest, app))}</span>
+          <span class="pill ok">Última</span>
+          ${app.platform ? `<span class="meta">${esc(app.platform)}${app.webview2 ? ' · requiere WebView2' : ''} · ${esc(fmtDate(latest.published_at))}</span>` : `<span class="meta">${esc(fmtDate(latest.published_at))}</span>`}
+        </div>
+        <div class="downloads">${dl || '<span class="meta">Sin instaladores en este release.</span>'}</div>
+        ${sha ? `<details class="hashes"><summary>Verificación SHA-256</summary>${sha}</details>` : ''}
+        ${latest.body ? `<div class="notes">${esc(latest.body.trim())}</div>` : ''}
+      </div>
+      ${olderHtml}`;
   }
 
-  const latest = releases[0];
-  const latestCard = `
-    <div class="latest">
-      <div class="latest-top">
-        <span class="ver">v${esc(versionOf(latest, app))}</span>
-        <span class="pill">Última</span>
-        ${app.platform ? `<span class="meta">${esc(app.platform)}${app.webview2 ? ' · requiere WebView2' : ''}</span>` : ''}
-        <span class="meta">${esc(fmtDate(latest.published_at))}</span>
+  const notice = `
+    <div class="notice">
+      <span class="ico">⚠</span>
+      <div>
+        <h4>Aviso al instalar en Windows</h4>
+        <p>Esta versión aún no está firmada con certificado de código. La primera vez, Windows
+        SmartScreen puede indicar “origen desconocido”: es normal en apps nuevas sin firma. Haz clic
+        en <strong>“Más información” → “Ejecutar de todas formas”</strong>. Verifica la integridad
+        comparando el hash SHA-256 con el publicado.</p>
       </div>
-      ${downloadButtons(latest)}
-      ${hashesBlock(latest)}
-      ${latest.body ? `<div class="notes">${esc(latest.body.trim())}</div>` : ''}
     </div>`;
 
-  const older = releases.slice(1);
-  const olderBlock =
-    older.length === 0
-      ? ''
-      : `<details class="older"><summary>Versiones anteriores (${older.length})</summary>${older
-          .map((r) => {
-            const { exe, msi } = pickAssets(r);
-            const links = [
-              exe ? `<a href="${esc(exe.browser_download_url)}">.exe</a>` : '',
-              msi ? `<a href="${esc(msi.browser_download_url)}">.msi</a>` : '',
-            ]
-              .filter(Boolean)
-              .join('');
-            return `<div class="older-item"><span class="ver">v${esc(versionOf(r, app))}</span><span class="meta">${esc(
-              fmtDate(r.published_at),
-            )}</span><span class="older-links">${links}</span></div>`;
-          })
-          .join('')}</details>`;
+  view.innerHTML = `<div class="wrap">${head}${body}${notice}</div>`;
+  window.scrollTo(0, 0);
+}
 
-  return `<section class="app">${head}${latestCard}${olderBlock}</section>`;
+/* ---------- Router ---------- */
+function route() {
+  if (!CONFIG) return;
+  const id = decodeURIComponent(location.hash.replace(/^#/, '')).trim();
+  const app = (CONFIG.apps || []).find((a) => a.id === id && a.status !== 'comingSoon');
+  if (app) productPage(app);
+  else landing();
 }
 
 async function main() {
-  const appsEl = document.getElementById('apps');
-  const navEl = document.getElementById('nav');
-  let config;
+  view.innerHTML = '<p class="loading wrap">Cargando…</p>';
   try {
-    config = await (await fetch('apps.json', { cache: 'no-cache' })).json();
+    CONFIG = await (await fetch('apps.json', { cache: 'no-cache' })).json();
   } catch {
-    appsEl.innerHTML = `<p class="empty">No se pudo cargar la configuración de apps.</p>`;
+    view.innerHTML = '<p class="empty wrap">No se pudo cargar el catálogo.</p>';
     return;
   }
-  const apps = config.apps || [];
-
-  let releases = [];
   try {
     const res = await fetch(`https://api.github.com/repos/${HUB}/releases?per_page=100`, {
       headers: { Accept: 'application/vnd.github+json' },
     });
-    if (res.ok) releases = await res.json();
+    if (res.ok) RELEASES = await res.json();
   } catch {
-    /* sin red / rate limit: mostramos apps sin versiones */
+    /* sin red / rate limit: la web funciona, sin versiones */
   }
-
-  navEl.innerHTML = apps.map((a) => `<a href="#${esc(a.id)}">${esc(a.name)}</a>`).join('');
-
-  appsEl.innerHTML = apps
-    .map((app) => {
-      const rels = releases
-        .filter((r) => !r.draft && (r.tag_name || '').startsWith(app.tagPrefix))
-        .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
-      return renderApp(app, rels);
-    })
-    .join('');
+  window.addEventListener('hashchange', route);
+  route();
 }
 
 main();

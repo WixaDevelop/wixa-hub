@@ -1,16 +1,36 @@
 {
-  "//": "Catálogo de productos WiXa. Para agregar una app nueva: añade una entrada y publica sus releases en este repo con el tagPrefix correspondiente (p. ej. nuevaapp-v1.0.0).",
+  "//": "Catálogo de productos WiXa. Agregar una app = nueva entrada aquí + publicar sus releases con el tagPrefix. status: 'available' | 'comingSoon'.",
+  "company": {
+    "name": "WiXa",
+    "tagline": "Herramientas de análisis y forense digital",
+    "intro": "Software pericial de escritorio: rigor forense, cadena de custodia y reportes reproducibles. Descarga las versiones oficiales y mantén tus herramientas siempre al día."
+  },
   "apps": [
     {
       "id": "watuy",
       "name": "Watuy",
-      "tagline": "Análisis forense de bases SQLite de mensajería móvil",
-      "description": "Herramienta pericial de escritorio para WhatsApp iOS/Android y CallHistory iOS. Reportes XLSX reproducibles, cadena de custodia por hash y registro de auditoría.",
+      "tagline": "Análisis forense de mensajería móvil",
+      "description": "Herramienta pericial para WhatsApp iOS/Android y CallHistory iOS. Visor de chats, reportes XLSX reproducibles, registro de auditoría encadenado por hash, recuperación de indicios y auto-actualización.",
       "tagPrefix": "watuy-v",
-      "accent": "#4F9CE8",
+      "accent": "#4f9ce8",
       "platform": "Windows 64-bit",
       "webview2": true,
-      "repo": "wifituga/Watuy"
+      "status": "available",
+      "features": [
+        "Cadena de custodia por hash (SHA-256)",
+        "Visor de chats con menciones y citas",
+        "Reportes XLSX reproducibles + firma Ed25519",
+        "Recuperación de indicios (carving)",
+        "Auto-actualización firmada"
+      ]
+    },
+    {
+      "id": "soon",
+      "name": "En desarrollo",
+      "tagline": "Nuevas herramientas WiXa en camino",
+      "description": "Estamos construyendo más utilidades de análisis y forense digital. Vuelve pronto.",
+      "accent": "#64748b",
+      "status": "comingSoon"
     }
   ]
 }
