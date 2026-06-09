@@ -1,11 +1,11 @@
 {
-  "pub_date": "2026-06-09T15:12:35Z",
-  "version": "1.7.5",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcXBsV2grNGk2UnVwSWV5eEVLY2ZubGNDcTA0cEFUaUhHUkZxT2ZKM05JMGw0d2VKVVBLVURRVlNBSnpBOFBJS21CeEx5eVRmN0pycGRKY1MyWktLZkFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDE3OTM0CWZpbGU6V2F0dXlfMS43LjVfeDY0LXNldHVwLmV4ZQp4UGp2TUxMWFZzVkU5TWtRNStYcHdZZVcwOUZGVEpDOVhlV253SktBd0YzR2lML1hvVDNjd0FjaFFsMXRjYWVhYzBqcDFTL0RycE8xZUQ5aUJUeHZDdz09Cg==",
-      "url": "https://github.com/WixaDevelop/wixa-hub/releases/download/watuy-v1.7.5/Watuy_1.7.5_WiXa_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcXVqVU55eEJ4N3dOU3RXV2x1dlRlc09Sems3QkhKMTdubjVZcUw3NEVuem14c2FrSVBrSkZVZ3VlQ0Q1RFJkSVNxYUNMMTBPUUYwczFYaEUxY1lnMlFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDE5MzY5CWZpbGU6V2F0dXlfMS43LjZfeDY0LXNldHVwLmV4ZQpUMnBQaXU1aW5xd2ZWTlZNN1NOTld4a2RqQ3pyT2VuZFZlQ2pTa0ZMRE91YzNOdXRCM2UvZnhiQ2dLM1ZQK0xjT29yVS9ReFZ6VGJ4UUNtQnRuN0RBZz09Cg==",
+      "url": "https://github.com/WixaDevelop/wixa-hub/releases/download/watuy-v1.7.6/Watuy_1.7.6_WiXa_x64-setup.exe"
     }
   },
-  "notes": "Watuy 1.7.5 — actualización de WiXa."
+  "version": "1.7.6",
+  "notes": "Watuy 1.7.6 — actualización de WiXa.",
+  "pub_date": "2026-06-09T15:36:32Z"
 }
