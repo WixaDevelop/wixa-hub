@@ -1,0 +1,56 @@
+name: Mirror Watuy updater manifest
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mirror-watuy-updater
+  cancel-in-progress: true
+
+jobs:
+  mirror:
+    name: Mirror latest.json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out compatibility site
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v7
+
+      - name: Fetch and validate current manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            'https://raw.githubusercontent.com/wifituga/watuy-downloads/main/watuy/latest.json' \
+            --output watuy/latest.json
+
+          node <<'NODE'
+          const fs = require('node:fs');
+          const manifest = JSON.parse(fs.readFileSync('watuy/latest.json', 'utf8'));
+          const release = manifest?.platforms?.['windows-x86_64'];
+          if (!manifest.version || !release?.signature || !release?.url) {
+            throw new Error('El manifiesto público no contiene los campos obligatorios.');
+          }
+          if (!release.url.startsWith('https://github.com/wifituga/watuy-downloads/releases/download/')) {
+            throw new Error('El manifiesto apunta fuera del repositorio público autorizado.');
+          }
+          NODE
+
+      - name: Publish only when the manifest changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- watuy/latest.json; then
+            echo 'latest.json ya está actualizado.'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add watuy/latest.json
+          git commit -m 'chore: mirror Watuy updater manifest'
+          git push
