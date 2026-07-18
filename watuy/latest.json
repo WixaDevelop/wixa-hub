@@ -1,11 +1,11 @@
 {
+  "version": "1.10.1",
+  "notes": "Watuy 1.10.1 — by wifituga.",
+  "pub_date": "2026-07-12T00:48:21Z",
   "platforms": {
     "windows-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcWdCb0xZcVRJa0lpeVFjYVBSMXlzVmVPMEVHOG4zRy9EcjQrUlIvUFY1andHaVArTkpzb1YvRHRwZU9xWW9aUWVId2E3eUFVemRsY1VLZWJQdW5JWlFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgzODE3MjkwCWZpbGU6V2F0dXlfMS4xMC4xX3g2NC1zZXR1cC5leGUKejBteTc2bHNzZFNXT2x0a2hCalNrWFBZWG05RWZRZUhNa2VVSGo4TklQNURaUGc5MDd1Z2ZkSkVodTFOU2hKWElhNVpGdzlSWWxMQ1FlTjkwUjJGQlE9PQo=",
-      "url": "https://github.com/WixaDevelop/wixa-hub/releases/download/watuy-v1.10.1/Watuy_1.10.1_WiXa_x64-setup.exe"
+      "url": "https://github.com/wifituga/watuy-downloads/releases/download/v1.10.1/Watuy_1.10.1_by-wifituga_x64-setup.exe"
     }
-  },
-  "version": "1.10.1",
-  "notes": "Watuy 1.10.1 — actualización de WiXa.",
-  "pub_date": "2026-07-12T00:48:21Z"
+  }
 }
