@@ -1,11 +1,11 @@
 {
-  "notes": "# Watuy 1.10.2\r\n\r\n- Nueva identidad visual de wifituga: la tortuga usa un caparazón formado por ondas Wi-Fi en la aplicación, el ejecutable y los instaladores.\r\n- Eliminados el favicon de Tauri y los recursos de plantilla que ya no formaban parte del producto.\r\n- La interfaz deja de solicitar fuentes remotas bloqueadas por la política de seguridad; desarrollo y producción usan ahora la misma tipografía local.\r\n- Los diálogos globales ya no pueden superponerse al usar atajos de teclado.\r\n- El progreso de descarga del actualizador queda limitado correctamente al 100 % y registra fallos técnicos sin ocultar el mensaje al usuario.\r\n- El chequeo de formato funciona de forma consistente en Windows y Linux.",
-  "version": "1.10.2",
+  "version": "1.10.3",
+  "pub_date": "2026-08-31T06:14:21Z",
+  "notes": "# Watuy 1.10.3\r\n\r\n- Corregido el análisis de bases `msgstore.db` cuya tabla `message_media` no contiene una columna `_id`.\r\n- El parser de WhatsApp Android selecciona ahora los metadatos multimedia mediante la clave primaria disponible o el identificador interno estable de SQLite.\r\n- Si una variante excepcional de `message_media` no ofrece una identidad determinista, Watuy conserva el análisis de mensajes y muestra una advertencia en lugar de cancelar todo el proceso.\r\n- Añadidas pruebas de regresión para tablas multimedia sin `_id` y para tablas SQLite `WITHOUT ROWID`.\r\n- Actualizadas dependencias transitivas de desarrollo con correcciones de seguridad, sin cambiar las funciones de la aplicación.",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcXB2VllYV0xHdlRlR29JMzUxa1pFNkFGbkkvdlNpbUg3UlNZYkh0ZUVzRDJrdnR0TFpoczVBRmhIWnlaKzJqQUJQeGU2K3MvMUVISXRYS3J5UnI3ZEFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0NDMwNDI5CWZpbGU6V2F0dXlfMS4xMC4yX3g2NC1zZXR1cC5leGUKM01nTml0VGE2VnlDWUJBK3JPbmhzZmxwZFQ1ZUY3Vys0MXlGNWRzNGRKZ2c1M3FFdkZ3VCswaTBlRk9hcGFVa3BWOG92anZxejR3eW5rOTlOV3cwQ0E9PQo=",
-      "url": "https://github.com/wifituga/watuy-downloads/releases/download/v1.10.2/Watuy_1.10.2_by-wifituga_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcXZ2b2pQTjdqY1lPNmxjYjFUQVIxeWs4NzdyeHZKSnZ1eitpZnUzQnVESVp3YUNaajI4bmFCK1k0MFFFdkorbkRHaVl0aUEvbExuemtQSUpMcWo3RkFzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4MTU2ODU5CWZpbGU6V2F0dXlfMS4xMC4zX3g2NC1zZXR1cC5leGUKYnAvSjRSZHpnTUVKTklKUk9oeGY3aGxuUFRIaUdUMCtkVEJhcVlQUENrZ252KzdWVmdHTlIwbXhKa1pGKzdIVXZyUXBadFpvYVRYN3JOcm0zUXJTRHc9PQo=",
+      "url": "https://github.com/wifituga/watuy-downloads/releases/download/v1.10.3/Watuy_1.10.3_by-wifituga_x64-setup.exe"
     }
-  },
-  "pub_date": "2026-07-19T03:07:15Z"
+  }
 }
