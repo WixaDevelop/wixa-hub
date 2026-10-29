@@ -1,11 +1,11 @@
 {
+  "pub_date": "2026-10-29T18:27:45Z",
+  "version": "1.11.6",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcWxiQ2pxUEpCKys2dndQMnJtbHdPbXF1ckpyMUg1M0pmU1hMdWJqY0t2WmlzZExxbVdtR3c2ZzRBVzgwVWF1d2lNTTkxTno3d3ZYNXBDN3EyZyt6aFFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMjEwMzA4CWZpbGU6V2F0dXlfMS4xMS40X3g2NC1zZXR1cC5leGUJdmVyc2lvbjoxLjExLjQKVUJRdzdPNXhuMVZpRlpURktvOEthTDNiQlRTUVlVNmxBTGFYcnh3ZHRLR3M0cloxZXoxSnJyZHZmY2ovMTFJMUtvRlFWTk1NaDczMnV3K0R6UWcyQ0E9PQo=",
-      "url": "https://github.com/wifituga/watuy-downloads/releases/download/v1.11.4/Watuy_1.11.4_by-wifituga_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMyt2UmRJNmpFcW1uTldVSXdNK2ZZeDF3eWpKVnVGVWVldTJhc3RwaE5KSGVwNkhWSmdWSy8rU2wrUC81Y3RrUjNSMnFBNmVJWUNqV1loR3pEN3ZOUlkwMzBrL2IyK1FrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMjk4NDY0CWZpbGU6V2F0dXlfMS4xMS42X3g2NC1zZXR1cC5leGUJdmVyc2lvbjoxLjExLjYKakJXQ1A4bDIvNCsrOEMyOGFpTDd4SEpjTWtSZGhGTXJiY1piWkliQlpQVXQzdHZCdm5yWmtMbzl3c2ZRTDJUZDVNSTU2cFVwVjZnTzYwcW4yU1E0RHc9PQo=",
+      "url": "https://github.com/wifituga/watuy-downloads/releases/download/v1.11.6/Watuy_1.11.6_by-wifituga_x64-setup.exe"
     }
   },
-  "pub_date": "2026-10-28T17:58:29Z",
-  "notes": "# Watuy 1.11.4\r\n\r\n- Exporta los chats importados desde TXT a bases SQLite derivadas de estilo Android o iPhone, con una opción ZIP que incluye los adjuntos disponibles.\r\n- La salida iPhone incorpora las tablas y los índices observados en una base real de versión desconocida; los campos sin datos permanecen vacíos y se conservan los TXT originales y su procedencia.\r\n- Añade una exportación experimental RSMF para probar su procesamiento en RelativityOne y muestra los hashes de los archivos generados.\r\n- Refuerza las comprobaciones de integridad, la auditoría y la protección frente a sobrescrituras al exportar.\r\n\r\nEstas salidas son derivadas de TXT, no son respaldos nativos de WhatsApp. La compatibilidad con Cellebrite Physical Analyzer y RelativityOne requiere pruebas en cada instalación. La exportación no genera informes UFDR.",
-  "version": "1.11.4"
+  "notes": "# Watuy 1.11.6\r\n\r\n- En la exportación Android experimental para Cellebrite, Watuy sugiere la contraparte de un chat declarado individual cuando la etiqueta exacta del custodio aparece en ese chat y solo hay otra etiqueta de remitente distinta.\r\n- La sugerencia se puede modificar; cuando el custodio no aparece o existen varias opciones, la contraparte se selecciona manualmente. La base y el manifiesto registran si la contraparte fue sugerida por Watuy o elegida por el usuario.\r\n\r\nLa salida es una base derivada de TXT, no una extracción ni un respaldo nativo. Las etiquetas no verifican la identidad de las personas y los identificadores son generados. La compatibilidad con Cellebrite es experimental; la generación y el procesamiento de UFDR y su carga en RelativityOne aún no se han validado."
 }
